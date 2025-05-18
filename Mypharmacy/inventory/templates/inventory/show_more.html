@@ -1,0 +1,186 @@
+{%extends 'inventory/basic.html'%}
+{%block title%}Home Page{%endblock%}
+
+
+
+{%block style%}
+        .btn {
+          padding: 4px 18px;
+          background-color: #D2042D;
+          transition: background-color 0.3s ease;
+          border-radius: 5px;
+          color: white;
+
+        }
+        .btn:hover {
+        background-color:#880808 ; /* darker green on hover */
+        color: white; /* keep text white */
+      }
+        .statusnot{
+        text-decoration: none;
+        padding: 4px 34px;
+        background-color: #fecaca;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        color: #991b1b;
+        font-size: 12px;
+        font-weight: bold;
+
+        }
+        .statusnot:hover {
+        text-decoration: none;
+        background-color:red ; /* darker green on hover */
+        color: white; /* keep text white */
+      }
+        .statusdone{
+        text-decoration: none;
+        padding: 4px 30px;
+
+        background-color: #bbf7d0;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        color: #065f46;
+        font-size: 12px;
+        font-weight: bold;
+        }
+        .statusdone:hover {
+        text-decoration: none;
+        background-color:green ; /* darker green on hover */
+        color: white; /* keep text white */
+      }
+
+       .showmore{
+        text-decoration: none;
+        padding: 4px 15px;
+        background-color: #3B82F6;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        }
+        .showmore:hover {
+        text-decoration: none;
+        background-color: blue; /* darker green on hover */
+        color: white; /* keep text white */
+      }
+
+
+{%endblock%}
+
+
+
+
+{%block body%}
+{% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+
+    <div class="container px-5 pt-14 pb-12 mx-auto">
+      <div class="flex flex-wrap w-full  flex-col items-center text-center">
+        <h1 class="sm:text-4xl text-4xl font-medium title-font mb-2 text-gray-900">Medicine Name: {{med.med_name}}</h1>
+        <p class="lg:w-1/2 w-full leading-relaxed text-red-500 font-bold">Brand: ({{med.med_brand}})</p>
+      </div>
+    </div>
+
+    <table class="min-w-full bg-white border border-gray-200">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Medicine</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dosage Form</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expiry Date</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status (PAR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example row -->
+      <tr class="hover:bg-gray-100">
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_brand}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_name}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_dosage_form}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_stock}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_expiry}}</td>
+          {%if med.med_stock >= med.med_par %}
+        <td class="border-b border-gray-200"><a class="statusdone ">In Stock</a></td>
+          {%else%}
+        <td class="border-b border-gray-200"><a class="statusnot">Low Stock</a></td>
+          {% endif%}
+      </tr>
+      <!-- Repeat rows dynamically -->
+    </tbody>
+  </table>
+<br>
+<table class="min-w-full bg-white border border-gray-200">
+<thead>
+      <tr>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch #</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PAR Level</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Price</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Box Price</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity in Box</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prescription</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example row -->
+      <tr class="hover:bg-gray-100">
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_batch}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_par}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_unitprice}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_boxprice}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_boxQ}}</td>
+          {%if med.med_flag == True %}
+        <td class="border-b border-gray-200"><a class="statusdone ">NO NEED</a></td>
+          {%else%}
+        <td class="border-b border-gray-200"><a class="statusnot">NEEDED</a></td>
+          {% endif%}
+      </tr>
+      <!-- Repeat rows dynamically -->
+    </tbody>
+  </table>
+
+<table class="min-w-full mt-6 bg-white border border-gray-200">
+<thead>
+      <tr>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dose</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">-</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">-</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">-</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">-</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">-</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example row -->
+      <tr class="hover:bg-gray-100">
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{med.med_dose}} {{med.med_dose_unit}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200"></td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200"></td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200"></td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200"></td>
+        <td class="border-b border-gray-200"></td>
+
+      </tr>
+      <!-- Repeat rows dynamically -->
+    </tbody>
+  </table>
+
+
+<section class="text-gray-600 body-font mt-5 ">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-2/4 flex flex-col sm:flex-row sm:items-center items-start mx-auto bg-red-100 p-6 rounded-3xl">
+      <h1 class="flex-grow sm:pr-16 text-4xl font-medium title-font text-red-600">Re-Stock :</h1>
+      <a href="{% url 're_stock' %}" class="flex-shrink-0 text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mt-10 sm:mt-0">Restock</a>
+    </div>
+  </div>
+</section>
+
+
+
+{%endblock%}

@@ -1,0 +1,104 @@
+{%extends 'inventory/basic.html'%}
+{%block title%}Home Page{%endblock%}
+
+
+
+{%block style%}
+
+
+{%endblock%}
+
+
+
+
+{%block body%}
+{% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+
+
+<form method="post" action="/inventory/create_order_fun/">
+  {%csrf_token%}
+  <section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-12 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 class="sm:text-4xl text-2xl font-medium title-font mb-4 text-gray-900">Order New Medicine</h1>
+      <p style="color:red" class="lg:w-2/3 mx-auto leading-relaxed text-base">Fill out the form to Order or Restock medicines.</p>
+      <p style="color:red" class="font-bold">*Every Field is Required*</p>
+    </div>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="brand" class="leading-7 text-sm text-gray-600">Brand</label>
+            <input required type="text" id="brand" name="brand" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="name" class="leading-7 text-sm text-gray-600">Medicine Name</label>
+            <input required type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="dose" class="leading-7 text-sm text-gray-600">Dose</label>
+            <input required type="number" id="dose" name="dose" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="unit" class="leading-7 text-sm text-gray-600">Unit</label>
+           <select id="unit" name="unit" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <option value="mg">mg (milligrams)</option>
+              <option value="g">g (grams)</option>
+              <option value="mcg">mcg:µg (microgram)</option>
+              <option value="Kg">Kg (Kilogram)</option>
+              <option value="IU">IU (International Unit)</option>
+              <option value="mL">mL (milliliters)</option>
+              <option value="L">L (Liters)</option>
+              <option value="mcL">mcL:µL (microliters)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+        <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="dosageform" class="leading-7 text-sm text-gray-600">Dosage Form</label>
+            <select id="dosageform" name="dosageform" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out" >
+              <option value="tablet">Tablet</option>
+              <option value="capsule">Capsule</option>
+              <option value="syrup">Syrup</option>
+              <option value="injection">Injection</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="stock" class="leading-7 text-sm text-gray-600">Stock</label>
+            <input required type="number" id="stock" name="stock" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="p-2 w-full mt-12">
+          <button type="submit"  class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Add</button>
+        </div>
+    </div>
+  </div>
+</section>
+
+</form>
+
+
+{%endblock%}
