@@ -66,6 +66,7 @@
       }
 
 
+
 {%endblock%}
 
 
@@ -80,25 +81,27 @@
     </script>
   {% endif %}
 
-    <div class="container px-5 pt-14 pb-12 mx-auto">
-      <div class="flex flex-wrap w-full  flex-col items-center text-center">
-        <h1 class="sm:text-4xl text-4xl font-medium title-font mb-2 text-gray-900">Re Stock and Updating</h1>
-        <p class="lg:w-1/2 w-full leading-relaxed text-red-500 font-bold">Restock And Update Current Medicines In The DataBase</p>
-      </div>
-    </div>
 
 
 
 <form method="post" >
   {%csrf_token%}
-  <section class="text-gray-600 body-font relative">
-    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+  <section class="text-orange-600 body-font relative">
+      <div class="container px-5 pt-14 pb-12 mx-auto">
+      <div class="flex flex-wrap w-full  flex-col items-center text-center">
+        <h1 class="sm:text-4xl text-4xl font-medium title-font mb-2 text-orange-900">Re Stock and Updating</h1>
+        <p class="lg:w-1/2 w-full leading-relaxed text-orange-500 font-bold">Restock And Update Current Medicines In The DataBase</p>
+      </div>
+    </div>
+
+
+    <div class="lg:w-2/3 md:w-2/3 mx-auto ">
       <div class="flex flex-wrap -m-2">
   <!-- Brand Dropdown -->
   <div class="p-2 w-1/2">
     <div class="relative">
-      <label for="brand" class="leading-7 text-sm text-gray-600">Brand</label>
-      <select id="brand_sel" name="brand" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <label for="brand" class="leading-7 text-sm text-orange-600">Brand</label>
+      <select id="brand_sel" name="brand" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         {% for i in med %}
           <option value="{{ i.med_brand }}">{{ i.med_brand }}</option>
         {% endfor %}
@@ -109,8 +112,8 @@
   <!-- Medicine Name Dropdown -->
   <div class="p-2 w-1/2">
     <div class="relative">
-      <label for="name" class="leading-7 text-sm text-gray-600">Medicine Name</label>
-      <select id="name_sel" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <label for="name" class="leading-7 text-sm text-orange-600">Medicine Name</label>
+      <select id="name_sel" name="name" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         {% for i in med %}
           <option value="{{ i.med_name }}">{{ i.med_name }}</option>
         {% endfor %}
@@ -122,14 +125,14 @@
 <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="dose_sel" class="leading-7 text-sm text-gray-600">Dose</label>
-            <input required type="number" id="dose_sel" name="dose_sel" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="dose_sel" class="leading-7 text-sm text-orange-600">Dose</label>
+            <input required type="number" id="dose_sel" name="dose_sel" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="unit_sel" class="leading-7 text-sm text-gray-600">Unit</label>
-           <select id="unit_sel" name="unit_sel" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out" >
+            <label for="unit_sel" class="leading-7 text-sm text-orange-600">Unit</label>
+           <select id="unit_sel" name="unit_sel" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out" >
               <option value="mg">mg (milligrams)</option>
               <option value="g">g (grams)</option>
               <option value="mcg">mcg:µg (microgram)</option>
@@ -147,8 +150,8 @@
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="dosageform" class="leading-7 text-sm text-gray-600">Dosage Form</label>
-            <select id="dosageform_sel" name="dosageform" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="dosageform" class="leading-7 text-sm text-orange-600">Dosage Form</label>
+            <select id="dosageform_sel" name="dosageform" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
               <option value="TABLET">Tablet</option>
               <option value="CAPSULE">Capsule</option>
               <option value="SYRUP">Syrup</option>
@@ -158,7 +161,7 @@
         </div>
       </div>
         <div class="p-2 w-full mt-12">
-          <button type="submit" name="select_btn" class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Update</button>
+          <button type="submit" name="select_btn" class="flex mx-auto text-white bg-orange-500 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded text-lg">Update</button>
         </div>
     </div>
 
@@ -171,48 +174,48 @@
 
 <form method="post" >
   {%csrf_token%}
-  <section class="text-gray-600 body-font relative">
+  <section class="text-orange-600 body-font relative">
     <input type="hidden" name="medicine_id" value="{{ selected_medicine.med_id }}">
     <div class="lg:w-1/2 md:w-2/3 mx-auto">
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="brand" class="leading-7 text-sm text-gray-600">Brand</label>
-            <input required type="text" id="brand" name="brand" value="{{selected_medicine.med_brand}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="brand" class="leading-7 text-sm text-orange-600">Brand</label>
+            <input required type="text" id="brand" name="brand" value="{{selected_medicine.med_brand}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="name" class="leading-7 text-sm text-gray-600">Medicine Name</label>
-            <input required type="text" id="name" name="name" value="{{selected_medicine.med_name}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div>
-      </div>
-        <div class="flex flex-wrap -m-2">
-        <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="batch" class="leading-7 text-sm text-gray-600">Batch #</label>
-            <input required type="number" id="batch" name="batch" value="{{selected_medicine.med_batch}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div>
-        <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="exp" class="leading-7 text-sm text-gray-600">Expiry Date</label>
-            <input required type="date" id="exp" name="exp" value="{{selected_medicine.med_expiry|date:'Y-m-d'}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="name" class="leading-7 text-sm text-orange-600">Medicine Name</label>
+            <input required type="text" id="name" name="name" value="{{selected_medicine.med_name}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
       </div>
         <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="dose" class="leading-7 text-sm text-gray-600">Dose</label>
-            <input required type="number" id="dose" name="dose" value="{{selected_medicine.med_dose}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="batch" class="leading-7 text-sm text-orange-600">Batch #</label>
+            <input required type="number" id="batch" name="batch" value="{{selected_medicine.med_batch}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="unit" class="leading-7 text-sm text-gray-600">Unit  Selected Unit: {{selected_medicine.med_dose_unit}}</label>
-           <select id="unit" name="unit" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out" >
+            <label for="exp" class="leading-7 text-sm text-orange-600">Expiry Date</label>
+            <input required type="date" id="exp" name="exp" value="{{selected_medicine.med_expiry|date:'Y-m-d'}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+      </div>
+        <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="dose" class="leading-7 text-sm text-orange-600">Dose</label>
+            <input required type="number" id="dose" name="dose" value="{{selected_medicine.med_dose}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="unit" class="leading-7 text-sm text-orange-600">Unit  Selected Unit: {{selected_medicine.med_dose_unit}}</label>
+           <select id="unit" name="unit" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out" >
               <option value="mg">mg (milligrams)</option>
               <option value="g">g (grams)</option>
               <option value="mcg">mcg:µg (microgram)</option>
@@ -228,36 +231,36 @@
         <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="par" class="leading-7 text-sm text-gray-600">Par Level</label>
-            <input required type="number" id="par" name="par" value="{{selected_medicine.med_par}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="par" class="leading-7 text-sm text-orange-600">Par Level</label>
+            <input required type="number" id="par" name="par" value="{{selected_medicine.med_par}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="stock" class="leading-7 text-sm text-gray-600">Stock</label>
-            <input required type="number" id="stock" name="stock" value="{{selected_medicine.med_stock}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-wrap -m-2">
-        <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="unitprice" class="leading-7 text-sm text-gray-600">Unit Price</label>
-            <input required type="number" step="any" id="unitprice" value="{{selected_medicine.med_unitprice}}" name="unitprice" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-        </div>
-        <div class="p-2 w-1/2">
-          <div class="relative">
-            <label for="boxQ" class="leading-7 text-sm text-gray-600">Quantity in Packing</label>
-            <input required type="number" step="any" id="boxQ" name="boxQ" value="{{selected_medicine.med_boxQ}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <label for="stock" class="leading-7 text-sm text-orange-600">Stock</label>
+            <input required type="number" id="stock" name="stock" value="{{selected_medicine.med_stock}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
       </div>
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/2">
           <div class="relative">
-            <label for="dosageform" class="leading-7 text-sm text-gray-600">Dosage Form</label>
-            <select id="dosageform" name="dosageform" value="{{selected_medicine.med_dosage_form}}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" >
+            <label for="unitprice" class="leading-7 text-sm text-orange-600">Unit Price</label>
+            <input required type="number" step="any" id="unitprice" value="{{selected_medicine.med_unitprice}}" name="unitprice" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="boxQ" class="leading-7 text-sm text-orange-600">Quantity in Packing</label>
+            <input required type="number" step="any" id="boxQ" name="boxQ" value="{{selected_medicine.med_boxQ}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="dosageform" class="leading-7 text-sm text-orange-600">Dosage Form</label>
+            <select id="dosageform" name="dosageform" value="{{selected_medicine.med_dosage_form}}" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" >
               <option value="tablet">Tablet</option>
               <option value="capsule">Capsule</option>
               <option value="syrup">Syrup</option>
@@ -267,14 +270,14 @@
         </div>
         <div class="p-2 w-1/2 mt-7">
           <div class="flex flex-row">
-            <label for="flag" class="leading-7 text-sm text-gray-600 mr-3 font-bold">With Prescription: </label>
-            <div class="mt-1"><input class="w-5 h-5 border-2 border-red-500 accent-red-500" type="checkbox" id="flag" name="flag"></div>
+            <label for="flag" class="leading-7 text-sm text-orange-600 mr-3 font-bold">With Prescription: </label>
+            <div class="mt-1"><input class="w-5 h-5 border-2 border-orange-500 accent-orange-500" type="checkbox" id="flag" name="flag"></div>
 
           </div>
         </div>
       </div>
       <div class="p-2 w-full mt-12">
-          <button type="submit" name="update_btn" class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Add</button>
+          <button type="submit" name="update_btn" class="flex mx-auto text-white bg-orange-500 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded text-lg">Add</button>
         </div>
     </div>
   </div>

@@ -4,6 +4,66 @@
 
 
 {%block style%}
+  ::-webkit-scrollbar{
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track{
+    background: #fed7aa ;
+    border-radius: 10px;
+
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color:#f97316 ;
+    border-radius: 10px;
+    border: 2px solid #fed7aa;
+  }
+  ::-webkit-scrollbar-thumb:hover{
+    background-color: red;
+  }
+  .scrollable-div {
+  scrollbar-width: thin; /* Options: auto | thin | none */
+  scrollbar-color: lightcoral lightgray; /* thumb color, track color */
+}
+
+  .box{
+    width: 550px;
+    height: 250px;
+    background-color: white;
+    text-align: left;
+    color: black;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin: 0 15px;
+    margin-top:5px;
+    overflow-y: scroll;
+
+  }
+    .box-main{
+    width: 1130px;
+    height: 280px;
+    background-color: white;
+    text-align: center;
+    color: black;
+    border-radius: 10px;
+    margin: 0 15px;
+    overflow-y: scroll;
+    margin-top:5px;
+
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .con{
+
+      display: flex;
+      justify-content: center;
+        align-items: center;
+
+
+      margin: 10px 0;
+
+  }
+
+
 
 {%endblock%}
 
@@ -12,25 +72,29 @@
 
 
 {%block body%}
+  <div class="con" >
+      <div>
+          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
+            <div class="box">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
+            </div>
+      </div>
 
-<div class="container">
-    <div class="top-row">
-      <div class="box top-box">
-        <!-- Content for top left box goes here -->
-        <p>Top Left Box - Scrollable area</p>
-        <p>(Add your content here later)</p>
+    <div>
+          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
+            <div class="box">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
+            </div>
       </div>
-      <div class="box top-box">
-        <!-- Content for top right box goes here -->
-        <p>Top Right Box - Scrollable area</p>
-        <p>(Add your content here later)</p>
+  </div>
+  <div class="con">
+       <div class="mt-2">
+          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
+            <div class="box-main">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
+            </div>
       </div>
-    </div>
-    <div class="bottom-box box">
-      <!-- Content for bottom box goes here -->
-      <p>Bottom Box - Scrollable area</p>
-      <p>(Add your content here later)</p>
-    </div>
+
   </div>
 {%endblock%}
 
