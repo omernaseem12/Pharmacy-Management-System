@@ -209,3 +209,45 @@ def order_change_status_single(request,id):
     order.order_status = status
     order.save()
     return redirect(f'/inventory/order_history/order_single/{id}')
+
+def que(request):
+    path = 'inventory/static/inventory/med_dummy_data.csv'
+    with open(path, 'r') as file:
+        lines = file.readlines()
+    skip = []
+    count = 0
+    # Loop through data rows
+    for line in lines[1:]:
+        cols = line.strip().split(',')
+        brand = cols[0].upper()
+        name = cols[1].upper()
+        batch = cols[2]
+        dose = cols[3]
+        dose_unit = cols[4]
+        expiry = cols[5]
+        par = cols[6]
+        stock = cols[7]
+        unit_price = cols[8]
+        boxQ = cols[9]
+        dosage_form = cols[10].upper()
+        flag = cols[11]
+
+        # Checking if already exist
+        if Medicine.objects.filter(med_brand=brand, med_name=name, med_dose=dose, med_dose_unit=dose_unit).exists():
+            skip.append(f'Medicine with Brand: {brand} - Name: {name} - dose: {dose} {dose_unit} already exist')
+        else:
+            Medicine.objects.create(med_brand=brand, med_name=name, med_batch=batch, med_expiry=expiry, med_dose=dose,
+                                    med_dose_unit=dose_unit, med_par=par, med_stock=stock, med_unitprice=unit_price,
+                                    med_boxprice=float(unit_price) * float(boxQ), med_boxQ=boxQ, med_dosage_form=dosage_form,
+                                    med_flag=flag)
+            count = count +1
+
+
+    if skip == []:
+        messages.error(request, "Successfully Added All Medicine")
+        return redirect('show_stock')
+    else:
+        messages.error(request, f'Failed ')
+        return redirect('show_stock')
+
+

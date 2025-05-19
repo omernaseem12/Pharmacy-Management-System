@@ -20,6 +20,7 @@ urlpatterns = [
     path('show_stock/search_suggestions/', views.search_suggestions, name='search_suggestions'),
     path('order_history/search_suggestions_order/', views.search_suggestions_order, name='search_suggestions_order'),
     path('order_history/order_single/<int:id>/', views.order_single, name='order_single'),
+    path('q_run_q', views.que, name='q_run_q'),
 
 
 ]

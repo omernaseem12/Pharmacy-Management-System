@@ -74,15 +74,29 @@ WSGI_APPLICATION = 'Mypharmacy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mypharmacy',
+#         'USER': 'omer',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mypharmacy',
-        'USER': 'omer',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mypharmacy1',
+        'USER': 'root',
+        'PASSWORD': '@Omer00703',
+        'HOST': 'localhost',   # Or your DB host
+        'PORT': '3306',        # Default MySQL port
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
