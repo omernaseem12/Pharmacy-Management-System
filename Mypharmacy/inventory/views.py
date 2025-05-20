@@ -2,13 +2,31 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, JsonResponse
 from .models import Medicine,Order
 from django.contrib import messages
-from django.db.models import Q
-import datetime
+from django.db.models import Q, F
+from datetime import date, timedelta
+from dateutil.relativedelta import relativedelta
+
 
 # Create your views here.
 
 def home(request):
-    return render(request,'inventory/home.html')
+    today = date.today()
+    three_months = today + relativedelta(months=3)
+    exp_med_3 = Medicine.objects.filter(med_expiry__lte = three_months)
+    len_3_mon = len(exp_med_3)
+    exp_med = Medicine.objects.filter(med_expiry__lte = today)
+    len_exp = len(exp_med)
+    par_low = Medicine.objects.filter(med_par__gt= F('med_stock'))
+    len_low = len(par_low)
+    no_stock = Medicine.objects.filter(med_stock = 0)
+    len_no_stock = len(no_stock)
+    pending_orders = Order.objects.filter(order_status=False)
+    len_pending = len(pending_orders)
+    dic = {'exp_med_3':exp_med_3,'exp_med':exp_med,'par_low':par_low,
+           'no_stock':no_stock,'pending_orders':pending_orders,
+           'len_3_mon':len_3_mon,'len_exp':len_exp,'len_low':len_low,
+           'len_no_stock':len_no_stock,'len_pending':len_pending}
+    return render(request,'inventory/home.html',dic)
 
 def add_stock(request):
     return render(request,'inventory/add_stock.html')
@@ -139,7 +157,9 @@ def re_stock(request):
 
 
     meds = Medicine.objects.all()
-    dic = {'med':meds,'selected_medicine': selected_medicine}
+    med_brand = Medicine.objects.values('med_brand').distinct()
+    med_name = Medicine.objects.values('med_name').distinct()
+    dic = {'med':meds,'selected_medicine': selected_medicine,'med_brand':med_brand,'med_name':med_name}
     return render(request,'inventory/re_stock.html',dic)
 
 def order_history(request, sort_by='order_status'):

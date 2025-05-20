@@ -102,8 +102,8 @@
     <div class="relative">
       <label for="brand" class="leading-7 text-sm text-orange-600">Brand</label>
       <select id="brand_sel" name="brand" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-        {% for i in med %}
-          <option value="{{ i.med_brand }}">{{ i.med_brand }}</option>
+        {% for i in med_brand %}
+          <option value="{{ i.med_brand }}">{{i.med_brand}}</option>
         {% endfor %}
       </select>
     </div>
@@ -114,7 +114,7 @@
     <div class="relative">
       <label for="name" class="leading-7 text-sm text-orange-600">Medicine Name</label>
       <select id="name_sel" name="name" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-        {% for i in med %}
+        {% for i in med_name %}
           <option value="{{ i.med_name }}">{{ i.med_name }}</option>
         {% endfor %}
       </select>
@@ -126,7 +126,7 @@
         <div class="p-2 w-1/2">
           <div class="relative">
             <label for="dose_sel" class="leading-7 text-sm text-orange-600">Dose</label>
-            <input required type="number" id="dose_sel" name="dose_sel" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <input required type="number" id="dose_sel" step="0.01" name="dose_sel" class="w-full bg-orange-100 bg-opacity-50 rounded border border-orange-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-orange-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         <div class="p-2 w-1/2">

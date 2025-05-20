@@ -4,26 +4,75 @@
 
 
 {%block style%}
-  ::-webkit-scrollbar{
+      ::-webkit-scrollbar{
     width: 9px;
   }
-  ::-webkit-scrollbar-track{
+  .scrollred::-webkit-scrollbar-track{
+    background: gray ;
+    border-radius: 10px;
+    opacity: 40%;
+
+  }
+  .scrollred::-webkit-scrollbar-thumb{
+    background-color:whitesmoke ;
+    border-radius: 10px;
+    border: 2px solid rgb(180, 84, 120);
+  }
+.scrollgreen::-webkit-scrollbar-track{
+    background: gray ;
+    border-radius: 10px;
+    opacity: 60%;
+
+  }
+  .scrollgreen::-webkit-scrollbar-thumb{
+    background-color:whitesmoke ;
+    border-radius: 10px;
+    border: 2px solid rgb(91, 140, 135);
+  }
+
+  .scrollwhite::-webkit-scrollbar-track{
+
     background: #fed7aa ;
     border-radius: 10px;
 
   }
-  ::-webkit-scrollbar-thumb{
-    background-color:#f97316 ;
+  .scrollwhite::-webkit-scrollbar-thumb{
+  background-color:#f97316 ;
+    border-radius: 10px;
+    border: 2px solid #fed7aa;
+  }
+::-webkit-scrollbar-track{
+
+    background: #fed7aa ;
+    border-radius: 10px;
+
+  }
+::-webkit-scrollbar-thumb{
+  background-color:#f97316 ;
     border-radius: 10px;
     border: 2px solid #fed7aa;
   }
   ::-webkit-scrollbar-thumb:hover{
     background-color: red;
   }
+  .scrollred::-webkit-scrollbar-thumb:hover{
+    background-color: lightgray;
+  }
   .scrollable-div {
   scrollbar-width: thin; /* Options: auto | thin | none */
   scrollbar-color: lightcoral lightgray; /* thumb color, track color */
 }
+
+
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
 
   .box{
     width: 550px;
@@ -72,30 +121,111 @@
 
 
 {%block body%}
-  <div class="con" >
-      <div>
-          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
-            <div class="box">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
+
+  <div class="p-4 max-w-[1024px] mx-auto">
+    <h2 class="text-xs text-gray-500 font-normal mb-3">DASHBOARD</h2>
+
+    <!-- Top Stats -->
+    <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex items-center  bg-[#e91e63] text-white px-5 py-3 rounded-md flex-1 min-w-[180px]">
+        <i class="fas fa-tasks text-lg"></i>
+        <div class="flex flex-col items-center text-white w-full">
+          <div class="text-[10px] font-semibold uppercase">🚨 Expired Medicine</div>
+          <div class="text-xl font-bold leading-none">{{len_exp}}</div>
+        </div>
+      </div>
+      <div class="flex items-center  bg-[#00bcd4] text-white px-5 py-3 rounded-md flex-1 min-w-[180px]">
+        <i class="fas fa-question-circle text-lg"></i>
+        <div class="flex flex-col items-center text-white w-full">
+          <div class="text-[10px] font-semibold uppercase">⚠️ Low Stock</div>
+          <div class="text-xl font-bold leading-none">{{len_low}}</div>
+        </div>
+      </div>
+      <div class="flex items-center  bg-[#8bc34a] text-white px-5 py-3 rounded-md flex-1 min-w-[180px]">
+        <i class="fas fa-comments text-lg"></i>
+        <div class="flex flex-col items-center text-white w-full">
+          <div class="text-[10px] font-semibold uppercase">❗ Out of Stock</div>
+          <div class="text-xl mx-4 font-bold leading-none">{{len_no_stock}}</div>
+        </div>
+      </div>
+      <div class="flex items-center bg-[#ff9800] text-white px-5 py-3  rounded-md flex-1 min-w-[180px]">
+        <i class="fas fa-user-plus text-lg"></i>
+        <div class="flex flex-col items-center text-white w-full">
+          <div class="text-[10px] font-semibold uppercase">🚚 Ongoing Orders</div>
+          <div class="text-xl w-full text-center font-bold leading-none">{{len_pending}}</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Middle Cards -->
+    <div class="flex flex-wrap gap-4 mt-8 mb-8">
+      <div class="bg-orange-500 text-white rounded-md p-5 flex-1 min-w-[220px] max-w-[660px]">
+        <div class="text-sm mb-3 font-semibold text-white">⚠️ <span class="mx-2">Alerts & Quick Actions</span></div>
+        <div class="overflow-auto h-50 max-h-60 scrollred ">
+        {%for expired in exp_med%}
+            <div class="py-1" style="font-size:12.5px;">
+              🚨 Expired: {{expired.med_brand}}: {{expired.med_name}} {{expired.med_dose}}{{expired.med_dose_unit}} ({{expired.med_dosage_form}}) <span class="font-extrabold">Remove immediately.</span>
             </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
+
+        {%for zero_stock in no_stock%}
+            <div class="py-1" style="font-size:12.5px;">
+              ❗ No Stock: {{zero_stock.med_brand}}: {{zero_stock.med_name}} {{zero_stock.med_dose}}{{zero_stock.med_dose_unit}} ({{zero_stock.med_dosage_form}}) <span class="font-extrabold"> Restock now.</span>
+            </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
+
+        {%for 3_months in exp_med_3%}
+            <div class="py-1" style="font-size:12.5px;">
+              ⏳ Expires Soon: {{3_months.med_brand}}: {{3_months.med_name}} {{3_months.med_dose}}{{3_months.med_dose_unit}} ({{3_months.med_dosage_form}}) <span class="font-extrabold"> LT 3 months left.</span>
+            </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
+
+        {%for low in par_low%}
+            <div class="py-1" style="font-size:12.5px;">
+              ⚠️ Low Stock: {{low.med_brand}}: {{low.med_name}} {{low.med_dose}}{{low.med_dose_unit}} ({{low.med_dosage_form}}) <span class="font-extrabold"> Reorder soon.</span>
+            </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
+      </div>
       </div>
 
-    <div>
-          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
-            <div class="box">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
+
+
+      <div class="bg-[#009688] text-white rounded-md p-5 flex-1 min-w-[220px] max-w-[320px]">
+        <div class="text-xs font-semibold uppercase mb-3">⏳📦 <span class="mx-2">Pending Orders</span></div>
+        <div class="overflow-auto h-50 max-h-60  scrollgreen ">
+        {%for pen_order in pending_orders%}
+            <div class="py-1" style="font-size:12.5px;">
+              🚚 Ongoing Orders: {{pen_order.order_brand}}: {{pen_order.order_name}} {{pen_order.order_dose}}{{pen_order.order_dose_unit}} ({{pen_order.order_dosage_form}}) <span class="font-extrabold"> Orders currently in progress or en route.</span>
             </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
       </div>
-  </div>
-  <div class="con">
-       <div class="mt-2">
-          <label  class="leading-7 font-bold text-lg px-5 text-black">Title</label>
-            <div class="box-main">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo officia incidunt sit? Perspiciatis sequi ullam natus earum atque
-            </div>
       </div>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-md p-4 h-90 mb-4">
+      <div class="flex justify-between items-center mb-3">
+        <div class="text-m font-bold text-orange-600">🛒<span class="mx-2">Sales & Transactions</span></div>
+        <div class="flex items-center space-x-2 text-xs text-gray-500 font-semibold">
+            <div class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full shadow-md peer-checked:translate-x-4 transition-transform"></div>
+          </label>
+        </div>
+      </div>
+      <div class="overflow-auto h-70 max-h-80 scrollwhite ">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus laboriosam sit quidem quibusdam. Numquam, distinctio corrupti, quasi odit sed commodi quos, unde dolorum facilis doloremque earum obcaecati. Quod non minus veritatis ipsa ducimus sit porro nostrum animi consectetur. Est labore repellat accusantium quibusdam vero neque enim assumenda aliquam! Rerum, possimus autem animi accusantium illo quis quia voluptatem numquam in, ipsum, cum enim inventore eligendi. Natus corrupti quibusdam nostrum consequuntur quos, soluta maxime, culpa earum sed, rerum accusamus temporibus et. Assumenda reiciendis minus, mollitia eaque cumque, quo fugiat praesentium minima optio at error facere dolorem illum itaque ut dicta necessitatibus odio incidunt porro. Praesentium soluta dolore enim saepe voluptatem recusandae officia veritatis vitae illo molestias fugiat natus a ullam molestiae earum labore magnam veniam rem architecto, corporis ducimus! Dolorem, voluptates nostrum expedita minus perferendis, omnis animi mollitia possimus id nesciunt qui debitis molestiae esse veritatis nobis magnam. Pariatur consectetur, adipisci saepe provident illo quasi ab consequuntur quisquam quidem iusto voluptatem est neque earum, nulla quam delectus, corrupti deserunt doloribus placeat nesciunt voluptatum repudiandae non aliquid? Magni praesentium error iure asperiores omnis cupiditate rem porro, deleniti rerum deserunt laudantium odio sapiente assumenda maxime? Minus doloremque neque amet, quo, harum quod, dolore nobis iste autem perspiciatis repellat eum labore pariatur error. Voluptas rem debitis est molestias non aperiam reiciendis odio tempore porro, quam sequi veniam commodi modi alias, obcaecati similique ratione quisquam. Illo aut dicta at sit facere ad placeat temporibus, numquam voluptatibus natus libero odio dolor dolore fuga id exercitationem voluptas obcaecati
+      </div>
+    </div>
+
+
+
 
   </div>
+
 {%endblock%}
 
 
