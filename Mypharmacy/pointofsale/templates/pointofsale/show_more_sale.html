@@ -16,9 +16,10 @@
         <div class="lg:w-2/4 h-38 flex flex-col justify-center  items-center mx-auto   bg-white p-6 shadow-lg shadow-gray-350/35 rounded-3xl">
             <h1 class="text-2xl my-1 font-bold title-font text-orange-500 text-center">Order ID: {{sale.order_id}}</h1>
             <h1 class="text-xl my-1 font-medium title-font text-red-500 text-center">Customer Name: {{sale.customer_name}}</h1>
-
+            <a href="/pos/invoice/{{sale.order_id}}" class="flex-shrink-0 text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded text-sm mt-2 sm:mt-2">Print Receipt</a>
         </div>
     </div>
+
 </section>
 
 <table class="min-w-full bg-white border border-orange-200">

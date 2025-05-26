@@ -37,16 +37,16 @@
 
 
   <section class="p-6 space-y-4 flex flex-col flex-grow">
-    <div class="bg-white rounded-sm px-3 py-1.5 text-gray-700 text-sm font-normal select-text">
-      Point of Sales - Shopping Cart
+    <div class="bg-white shadow rounded-sm text-orange-500 px-3 py-1.5 text-blsck text-m font-bold select-text">
+      My Pharmacy - Point of Sales
     </div>
 
-    <div class=" bg-white rounded-sm p-4 space-y-4 text-gray-800 text-sm font-normal">
+    <div class=" bg-white rounded-sm p-4 shadow space-y-4 text-gray-800 text-sm font-normal">
       <h2 class="font-semibold text-base">Products</h2>
       <div class="mb-7">
         <div>
           <input type="text" id="search" placeholder="Search Medicine"
-            class="w-full border border-gray-300 px-5 py-2 rounded-lg bg-white shadow">
+            class="w-full border focus:border-2 focus:border-orange-500 focus:outline-none border-gray-300 px-5 py-2 rounded-lg bg-white shadow">
         </div>
       </div>
 
@@ -76,7 +76,28 @@
         </div>
       </div>
     </div>
+
+    <div class="bg-white border border-gray-200 shadow rounded-md p-4 h-90 mb-4">
+      <div class="flex justify-between items-center mb-3">
+        <div class="text-m font-bold text-orange-600">🛒<span class="mx-2">Sales & Transactions</span></div>
+        <div class="flex items-center space-x-2 text-xs text-gray-500 font-semibold">
+        </div>
+      </div>
+      <div class="overflow-auto h-70 max-h-80 scrollwhite ">
+          {%for sale in allsales%}
+            <div class="py-1" style="font-size:13px;">
+              🚚 Sale Made: Customer: {{sale.customer_name}} | {{sale.customer_phone}} |Total: ${{sale.grandtotal}} | {{sale.payment_type}} </span>
+            </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
+
+      </div>
+</div>
+
   </section>
+
+
+
 
 {%endblock%}
 
@@ -208,11 +229,6 @@
       grandTotalEl.innerText = `$${grandTotal.toFixed(2)}`;
     }
 
-<!--    function checkoutCart() {-->
-<!--      const cartData = Object.values(cart);-->
-<!--      localStorage.setItem('cartData', JSON.stringify(cartData));-->
-<!--      window.location.href = 'checkout';-->
-<!--    }-->
 async function checkoutCart() {
   const cartData = Object.values(cart);
 

@@ -15,6 +15,7 @@ from weasyprint import HTML
 from django.utils import timezone
 import tempfile
 
+
 today = date.today()
 # Create your views here.
 
@@ -23,9 +24,9 @@ def test(request):
 
 def home(request):
     invoice_url = request.session.pop('invoice_url', None)
-    print("Invoice URL:", invoice_url)
+    allsales = Sale.objects.order_by('-date')[:20]
     return render(request, 'pointofsale/home.html', {
-        'invoice_url': invoice_url,
+        'invoice_url': invoice_url,'allsales':allsales,
     })
 
 
@@ -53,8 +54,8 @@ def sales(request):
             return render(request,"pointofsale/all_sales.html",dic)
         else:
             selected_data = Sale.objects.filter()
-            print('allllllll')
             dic = {'selected_data': selected_data}
+            print(selected_data)
             return render(request, "pointofsale/all_sales.html", dic)
     return render(request,"pointofsale/all_sales.html", dic)
 
@@ -101,6 +102,7 @@ def search_suggestions_sales(request):
     if query:
         sales = Sale.objects.filter(
             (Q(customer_name__icontains=query) |
+            Q(order_id__icontains=query) |
             Q(customer_phone__icontains=query))
         )  # Limit to top 10 results
         results = [
