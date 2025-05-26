@@ -62,6 +62,7 @@ def return_log(request,id):
         med.med_stock += int(order.quantity)
         med.save()
     Return.objects.create(order_id=id, date=today)
+    messages.error(request, f'Successfully Returned Order ID: {id}')
     return redirect('pos_return')
 
 def sales(request):
@@ -164,7 +165,7 @@ def show_more_sale(request,id):
     else:
         flag = False
     dic = {'sale':sale, 'order':order,'flag':flag}
-    messages.error(request, f'Successfully Returned Order ID: {id}')
+
     return render(request, 'pointofsale/show_more_sale.html',dic)
 
 

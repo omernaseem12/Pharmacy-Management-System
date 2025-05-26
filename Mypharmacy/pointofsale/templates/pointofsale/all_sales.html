@@ -191,7 +191,7 @@ function fetchSuggestions() {
       if (data.length > 0) {
         data.forEach(item => {
           const li = document.createElement('li');
-          li.textContent = `Customer: ${item.name}  | Phone: ${item.phone} - Grand Total : $${item.grandtotal} `;
+          li.textContent = `Order ID: ${item.id} | Customer: ${item.name}  | Phone: ${item.phone} - Grand Total : $${item.grandtotal} `;
           li.className = 'px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer';
           li.onclick = () => {
 <!--            input.value = `${item.name}`;-->
