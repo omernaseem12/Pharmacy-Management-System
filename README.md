@@ -162,7 +162,7 @@ python3 manage.py runserver
 
 6. **Access the app**
 
-* Open `http://127.0.0.1:8000/inventoey` in your browser.
+* Open `http://127.0.0.1:8000/inventory` in your browser.
 
 ---
 
