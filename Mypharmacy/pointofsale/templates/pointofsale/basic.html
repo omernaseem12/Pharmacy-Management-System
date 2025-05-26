@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grocery POS</title>
+  <title>My Pharmacy POS</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     rel="stylesheet"
@@ -32,15 +32,15 @@
     <aside id="sidebar" class="bg-orange-500 text-white w-56 flex flex-col p-6 space-y-6 select-none">
       <h1 class="font-semibold text-lg mb-4">My Pharmacy POS</h1>
       <nav id="navMenu" class="flex flex-col space-y-3 text-sm font-semibold">
-        <a href="#" class="flex items-center space-x-2 hover:text-white nav-link" data-tab="product-list">
+        <a href="/inventory" class="flex items-center space-x-2 hover:text-white nav-link" data-tab="product-list">
           <i class="fas fa-box-open text-xs"></i>
-          <span>Product List</span>
+          <span>Inventory</span>
         </a>
-        <a href="#" class="flex items-center space-x-2 nav-link active-tab bg-white text-gray-700 rounded px-3 py-1.5" data-tab="pos">
+        <a href="/pos" class="flex items-center space-x-2 nav-link active-tab bg-white text-gray-700 rounded px-3 py-1.5" data-tab="pos">
           <i class="fas fa-cash-register text-xs"></i>
           <span>POS</span>
         </a>
-        <a href="#" class="flex items-center space-x-2 hover:text-white nav-link" data-tab="sales">
+        <a href="/pos/all_sales" class="flex items-center space-x-2 hover:text-white nav-link" data-tab="sales">
           <i class="fas fa-chart-line text-xs"></i>
           <span>Sales</span>
         </a>
@@ -55,10 +55,7 @@
         <button id="menuToggle" aria-label="Toggle menu" class="text-orange-500 hover:text-orange-600 focus:outline-none">
           <i class="fas fa-bars text-sm"></i>
         </button>
-        <div class="flex items-center space-x-2 text-xs text-gray-600">
-          <i class="fas fa-user-circle text-gray-400 text-base"></i>
-          <span>Administrator</span>
-        </div>
+
       </header>
 
       <!-- Content area -->
@@ -83,22 +80,25 @@
       }
     });
 
-    // Active tab switching
-    const navLinks = document.querySelectorAll('.nav-link');
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const currentPath = window.location.pathname;
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Remove active classes from all links
-        navLinks.forEach(l => {
-          l.classList.remove('bg-white', 'text-gray-700', 'rounded', 'px-3', 'py-1.5', 'active-tab');
-          l.classList.add('hover:text-white');
-        });
-        // Add active classes to clicked link
-        link.classList.add('bg-white', 'text-gray-700', 'rounded', 'px-3', 'py-1.5', 'active-tab');
-        link.classList.remove('hover:text-white');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    // Compare ignoring trailing slash for robustness
+    if (href.replace(/\/$/, '') === currentPath.replace(/\/$/, '')) {
+      // Remove active from all first
+      navLinks.forEach(l => {
+        l.classList.remove('bg-white', 'text-gray-700', 'rounded', 'px-3', 'py-1.5', 'active-tab');
+        l.classList.add('hover:text-white');
       });
-    });
+      // Add active classes on matching link
+      link.classList.add('bg-white', 'text-gray-700', 'rounded', 'px-3', 'py-1.5', 'active-tab');
+      link.classList.remove('hover:text-white');
+    }
+  });
+});
 
     {% block scripts %} {%endblock%}
   </script>

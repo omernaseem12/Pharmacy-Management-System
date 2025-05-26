@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Q, F
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
-
+from pointofsale.models import Sale
 
 # Create your views here.
 
@@ -22,10 +22,12 @@ def home(request):
     len_no_stock = len(no_stock)
     pending_orders = Order.objects.filter(order_status=False)
     len_pending = len(pending_orders)
+    sales = Sale.objects.order_by('-date')[:20]
+    len_sales = len(sales)
     dic = {'exp_med_3':exp_med_3,'exp_med':exp_med,'par_low':par_low,
            'no_stock':no_stock,'pending_orders':pending_orders,
            'len_3_mon':len_3_mon,'len_exp':len_exp,'len_low':len_low,
-           'len_no_stock':len_no_stock,'len_pending':len_pending}
+           'len_no_stock':len_no_stock,'len_pending':len_pending,'sales':sales,'len_sales':len_sales}
     return render(request,'inventory/home.html',dic)
 
 def add_stock(request):

@@ -12,9 +12,10 @@ urlpatterns = [
     path('suggestion/',views.suggestion, name='pos_suggestion'),
     path('client_data/',views.clientdata, name='pos_client_data'),
     path('search_suggestions/', views.search_suggestions, name='search_suggestions'),
+    path('all_sales/search_suggestions_sales/', views.search_suggestions_sales, name='search_suggestions_sales'),
 
     path('invoice/<int:order_id>/', views.generate_invoice_pdf, name='invoice-pdf'),
-
+    path('all_sales/show_more/<int:id>/', views.show_more_sale, name='show_more_sale'),
     path('create_sale/', views.create_sale, name='create_sale'),
     path('api/checkout/', views.create_order, name='create_order'),
     path('checkout/<int:order_id>/', views.checkout, name='checkout_page'),

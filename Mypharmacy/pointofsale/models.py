@@ -6,7 +6,7 @@ class Sale(models.Model):
     order_id = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True, null=True)
     customer_name = models.CharField(max_length=50,default='')
-    customer_phone = models.IntegerField(default=0)
+    customer_phone = models.CharField(max_length=50,default='')
     payment_type = models.CharField(max_length=20,default='card')
     subtotal = models.DecimalField(max_digits=10,decimal_places=2,default=0.0)
     tax = models.DecimalField(max_digits=10,decimal_places=2,default=0.0)

@@ -217,7 +217,12 @@
         </div>
       </div>
       <div class="overflow-auto h-70 max-h-80 scrollwhite ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus laboriosam sit quidem quibusdam. Numquam, distinctio corrupti, quasi odit sed commodi quos, unde dolorum facilis doloremque earum obcaecati. Quod non minus veritatis ipsa ducimus sit porro nostrum animi consectetur. Est labore repellat accusantium quibusdam vero neque enim assumenda aliquam! Rerum, possimus autem animi accusantium illo quis quia voluptatem numquam in, ipsum, cum enim inventore eligendi. Natus corrupti quibusdam nostrum consequuntur quos, soluta maxime, culpa earum sed, rerum accusamus temporibus et. Assumenda reiciendis minus, mollitia eaque cumque, quo fugiat praesentium minima optio at error facere dolorem illum itaque ut dicta necessitatibus odio incidunt porro. Praesentium soluta dolore enim saepe voluptatem recusandae officia veritatis vitae illo molestias fugiat natus a ullam molestiae earum labore magnam veniam rem architecto, corporis ducimus! Dolorem, voluptates nostrum expedita minus perferendis, omnis animi mollitia possimus id nesciunt qui debitis molestiae esse veritatis nobis magnam. Pariatur consectetur, adipisci saepe provident illo quasi ab consequuntur quisquam quidem iusto voluptatem est neque earum, nulla quam delectus, corrupti deserunt doloribus placeat nesciunt voluptatum repudiandae non aliquid? Magni praesentium error iure asperiores omnis cupiditate rem porro, deleniti rerum deserunt laudantium odio sapiente assumenda maxime? Minus doloremque neque amet, quo, harum quod, dolore nobis iste autem perspiciatis repellat eum labore pariatur error. Voluptas rem debitis est molestias non aperiam reiciendis odio tempore porro, quam sequi veniam commodi modi alias, obcaecati similique ratione quisquam. Illo aut dicta at sit facere ad placeat temporibus, numquam voluptatibus natus libero odio dolor dolore fuga id exercitationem voluptas obcaecati
+       {%for sale in sales%}
+            <div class="py-1" style="font-size:13px;">
+              🚚 Sale Made: Customer: {{sale.customer_name}} | {{sale.customer_phone}} |Total: ${{sale.grandtotal}} | {{sale.payment_type}} </span>
+            </div>
+          <hr class="border-t border-gray-200">
+          {%endfor%}
       </div>
     </div>
 

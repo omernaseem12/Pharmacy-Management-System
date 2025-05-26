@@ -1,9 +1,10 @@
+import datetime
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404, JsonResponse
 from inventory.models import Medicine, Order
 from django.contrib import messages
 from django.db.models import Q, F
-from datetime import date
 from datetime import date, timedelta
 from decimal import Decimal
 import json
@@ -14,7 +15,7 @@ from weasyprint import HTML
 from django.utils import timezone
 import tempfile
 
-
+today = date.today()
 # Create your views here.
 
 def test(request):
@@ -32,7 +33,33 @@ def refund(request):
     return HttpResponse("This is return page")
 
 def sales(request):
-    return HttpResponse("Sales page")
+    selected_data = None
+    dic = {'selected_data': selected_data}
+    if request.method == "POST" and 'select_btn' in request.POST:
+        date = request.POST.get('date','')
+        print('DATE',date)
+        if not date:
+            date = None
+            print('DATE', date)
+        if date is not None:
+            input_date = datetime.strptime(date, '%Y-%m-%d').date()
+            print('DATE', input_date)
+            if input_date > today:
+                messages.error(request,f'Invalid Date Selection, Please Select Correct Date')
+                return redirect(f'/pos/all_sales')
+        if date != None:
+            selected_data = Sale.objects.filter(date = date)
+            dic = {'selected_data':selected_data}
+            return render(request,"pointofsale/all_sales.html",dic)
+        else:
+            selected_data = Sale.objects.filter()
+            print('allllllll')
+            dic = {'selected_data': selected_data}
+            return render(request, "pointofsale/all_sales.html", dic)
+    return render(request,"pointofsale/all_sales.html", dic)
+
+
+
 
 def suggestion(request):
     return HttpResponse("Suggestion page")
@@ -66,6 +93,31 @@ def search_suggestions(request):
             } for med in medicines
         ]
     return JsonResponse(results, safe=False)
+
+def search_suggestions_sales(request):
+
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        sales = Sale.objects.filter(
+            (Q(customer_name__icontains=query) |
+            Q(customer_phone__icontains=query))
+        )  # Limit to top 10 results
+        results = [
+            {
+                'name': sale.customer_name,
+                'phone': sale.customer_phone,
+                'grandtotal': sale.grandtotal,
+                'id':sale.order_id,
+            } for sale in sales
+        ]
+    return JsonResponse(results, safe=False)
+
+def show_more_sale(request,id):
+    sale = Sale.objects.get(order_id = id)
+    order = OrderItem.objects.filter(order_id=id)
+    dic = {'sale':sale, 'order':order}
+    return render(request, 'pointofsale/show_more_sale.html',dic)
 
 def product_list(request):
     today = date.today()
@@ -182,5 +234,4 @@ def generate_invoice_pdf(request, order_id):
         response.write(tmp_file.read())
 
     return response
-
 
