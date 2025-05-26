@@ -81,8 +81,8 @@
 
     <!-- Shared Heading -->
     <div class="flex flex-col text-center w-full mb-6">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Search & Filter</h1>
-      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Search orders by name, phone, or ID. Optionally filter by date.</p>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Search & Filter Returns</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Search Returns by ID & Optionally filter by date.</p>
     </div>
 
     <!-- Side-by-side Content -->
@@ -91,17 +91,21 @@
 <!-- Left: Search Box (70%) -->
 <div class="lg:w-[70%] w-full relative">
   <label for="searchBox" class="leading-7 text-sm text-gray-600">Search Query</label>
+
   <input type="text" name="q" id="searchBox"
-         placeholder="Search By Name, Phone, And Order ID"
+         placeholder="Search By Order ID"
          class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-transparent focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-2 px-4 leading-8 transition-colors duration-200 ease-in-out"
          onkeyup="fetchSuggestions()" autocomplete="off">
 
-  <!-- Suggestion Box (width fixed to parent container using absolute positioning) -->
+  <!-- Suggestion Box -->
   <ul id="suggestionBox"
       class="absolute left-0 right-0 z-10 bg-white border rounded-lg mt-1 hidden shadow-lg max-h-60 overflow-y-auto">
     <!-- Suggestions go here -->
   </ul>
+
 </div>
+
+
 
 
       <!-- Right: Date Form (30%) -->
@@ -114,7 +118,7 @@
               <input type="date" id="date" name="date"
                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-2 px-4 leading-8 transition-colors duration-200 ease-in-out">
             </div>
-            <button type="submit" name="select_btn"
+            <button type="submit" name="date_btn"
                     class="text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded text-lg self-start">
               Find
             </button>
@@ -134,10 +138,7 @@
       <tr>
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">#</th>
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Date</th>
-        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Name</th>
-        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Phone#</th>
-        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
-        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Grand Total</th>
+
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider"></th>
       </tr>
@@ -148,10 +149,6 @@
       <tr class="hover:bg-orange-50">
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{forloop.counter}}</td>
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.date}}</td>
-        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.customer_name}}</td>
-        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.customer_phone}}</td>
-        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.payment_type}}</td>
-        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.grandtotal}}</td>
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.order_id}}</td>
         <td class="border-b border-orange-200"><a href="{% url 'show_more_sale' i.order_id %}" class="showmore">Show More</a></td>
       </tr>
@@ -184,19 +181,17 @@ function fetchSuggestions() {
     return;
   }
 
-  fetch(`search_suggestions_sales/?q=${encodeURIComponent(query)}`)
+  fetch(`search_suggestions_return/?q=${encodeURIComponent(query)}`)
     .then(res => res.json())
     .then(data => {
       suggestions.innerHTML = '';
       if (data.length > 0) {
         data.forEach(item => {
           const li = document.createElement('li');
-          li.textContent = `Customer: ${item.name}  | Phone: ${item.phone} - Grand Total : $${item.grandtotal} `;
+          li.textContent = `Order ID: ${item.id}  | Date: ${item.date} `;
           li.className = 'px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer';
           li.onclick = () => {
-<!--            input.value = `${item.name}`;-->
-<!--            suggestions.innerHTML = '';-->
-<!--            suggestions.classList.add('hidden');-->
+
             window.location.href = `/pos/all_sales/show_more/${item.id}/`;
 
           };

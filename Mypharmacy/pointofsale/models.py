@@ -4,7 +4,7 @@ from inventory.models import Medicine
 
 class Sale(models.Model):
     order_id = models.IntegerField(default=0)
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateField(auto_now_add=True, null=True)
     customer_name = models.CharField(max_length=50,default='')
     customer_phone = models.CharField(max_length=50,default='')
     payment_type = models.CharField(max_length=20,default='card')
@@ -13,8 +13,6 @@ class Sale(models.Model):
     grandtotal = models.DecimalField(max_digits=10,decimal_places=2,default=0.0)
     paid = models.DecimalField(max_digits=10,decimal_places=2,default=0.0)
     returned = models.DecimalField(max_digits=10,decimal_places=2,default=0.0)
-
-
 
 
 
@@ -40,3 +38,10 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.name} @ ${self.price}"
+
+class Return(models.Model):
+    order_id = models.IntegerField(default=0)
+    date = models.DateField()
+
+    def __str__(self):
+        return f"{self.order_id} - {self.date}"

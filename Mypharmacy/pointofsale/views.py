@@ -8,7 +8,7 @@ from django.db.models import Q, F
 from datetime import date, timedelta
 from decimal import Decimal
 import json
-from .models import Order, OrderItem, Sale
+from .models import Order, OrderItem, Sale, Return
 
 from django.template.loader import get_template
 from weasyprint import HTML
@@ -19,19 +19,50 @@ import tempfile
 today = date.today()
 # Create your views here.
 
-def test(request):
-    return render(request, 'pointofsale/test.html')
+
 
 def home(request):
     invoice_url = request.session.pop('invoice_url', None)
-    allsales = Sale.objects.order_by('-date')[:20]
+    allsales = Sale.objects.order_by('-order_id')[:20]
     return render(request, 'pointofsale/home.html', {
         'invoice_url': invoice_url,'allsales':allsales,
     })
 
 
 def refund(request):
-    return HttpResponse("This is return page")
+    selected_data = None
+    dic = {'selected_data': selected_data}
+    if request.method == "POST" and 'date_btn' in request.POST:
+        date = request.POST.get('date', '')
+        print('DATE', date)
+        if not date:
+            date = None
+            print('DATE', date)
+        if date is not None:
+            input_date = datetime.strptime(date, '%Y-%m-%d').date()
+            print('DATE', input_date)
+            if input_date > today:
+                messages.error(request, f'Invalid Date Selection, Please Select Correct Date')
+                return redirect(f'/pos/all_sales')
+        if date != None:
+            selected_data = Return.objects.filter(date=date)
+            dic = {'selected_data': selected_data}
+            return render(request, "pointofsale/returns.html", dic)
+        else:
+            selected_data = Return.objects.filter()
+            dic = {'selected_data': selected_data}
+            print(selected_data)
+            return render(request, "pointofsale/returns.html", dic)
+    return render(request, "pointofsale/returns.html", dic)
+
+def return_log(request,id):
+    orders = OrderItem.objects.filter(order_id = id)
+    for order in orders:
+        med = Medicine.objects.get(med_brand=order.brand, med_name=order.name, med_dose=order.unit, med_dose_unit=order.siunit, med_dosage_form = order.form)
+        med.med_stock += int(order.quantity)
+        med.save()
+    Return.objects.create(order_id=id, date=today)
+    return redirect('pos_return')
 
 def sales(request):
     selected_data = None
@@ -59,14 +90,6 @@ def sales(request):
             return render(request, "pointofsale/all_sales.html", dic)
     return render(request,"pointofsale/all_sales.html", dic)
 
-
-
-
-def suggestion(request):
-    return HttpResponse("Suggestion page")
-
-def clientdata(request):
-    return HttpResponse("client data")
 
 
 def search_suggestions(request):
@@ -115,11 +138,35 @@ def search_suggestions_sales(request):
         ]
     return JsonResponse(results, safe=False)
 
+
+def search_suggestions_return(request):
+
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        sales = Return.objects.filter(
+            (Q(order_id__icontains=query))
+        )  # Limit to top 10 results
+        results = [
+            {
+                'id':sale.order_id,
+                'date':sale.date
+            } for sale in sales
+        ]
+    return JsonResponse(results, safe=False)
+
 def show_more_sale(request,id):
+    flag = False
     sale = Sale.objects.get(order_id = id)
     order = OrderItem.objects.filter(order_id=id)
-    dic = {'sale':sale, 'order':order}
+    if Return.objects.filter(order_id=id):
+        flag = True
+    else:
+        flag = False
+    dic = {'sale':sale, 'order':order,'flag':flag}
+    messages.error(request, f'Successfully Returned Order ID: {id}')
     return render(request, 'pointofsale/show_more_sale.html',dic)
+
 
 def product_list(request):
     today = date.today()

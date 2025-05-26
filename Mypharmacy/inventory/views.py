@@ -22,7 +22,7 @@ def home(request):
     len_no_stock = len(no_stock)
     pending_orders = Order.objects.filter(order_status=False)
     len_pending = len(pending_orders)
-    sales = Sale.objects.order_by('-date')[:20]
+    sales = Sale.objects.order_by('-order_id')[:20]
     len_sales = len(sales)
     dic = {'exp_med_3':exp_med_3,'exp_med':exp_med,'par_low':par_low,
            'no_stock':no_stock,'pending_orders':pending_orders,

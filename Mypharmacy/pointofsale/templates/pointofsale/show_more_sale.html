@@ -3,6 +3,38 @@
 {%block style%}
 
 
+.statusnot{
+        text-decoration: none;
+        padding: 4px 34px;
+        background-color: #fecaca;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        color: #991b1b;
+        font-size: 12px;
+        font-weight: bold;
+
+        }
+        .statusnot:hover {
+        text-decoration: none;
+        background-color:red ; /* darker green on hover */
+        color: white; /* keep text white */
+      }
+.statusreturn{
+        text-decoration: none;
+        padding: 4px 34px;
+        background-color: green;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+
+        }
+        .statusreturn:hover {
+        text-decoration: none;
+        background-color:red ; /* darker green on hover */
+        color: white; /* keep text white */
+      }
 
 {%endblock%}
 
@@ -33,6 +65,12 @@
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-orange-500 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Total</th>
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-orange-500 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</th>
         <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-orange-500 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+          {%if flag == True %}
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-orange-500 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          {%else%}
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-orange-500 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Return</th>
+          {% endif%}
+
       </tr>
     </thead>
     <tbody>
@@ -46,6 +84,11 @@
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{sale.grandtotal}}</td>
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{sale.paid}}</td>
         <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{sale.returned}}</td>
+          {%if flag == True %}
+        <td class="border-b border-orange-200"><a class="statusnot">Returned</a></td>
+          {%else%}
+          <td class="border-b border-orange-200"><a href="/pos/returns/log/{{sale.order_id}}" class="statusreturn">Return</a></td>
+          {% endif%}
 
 
       </tr>
