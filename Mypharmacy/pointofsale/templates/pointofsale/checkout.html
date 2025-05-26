@@ -1,0 +1,168 @@
+{%extends 'pointofsale/basic.html'%}
+
+{%block style%}
+
+{%endblock%}
+
+
+{%block body%}
+{% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+
+<div class="overflow-x-auto">
+  <div class="w-auto bg-white my-3 py-2 mx-7 text-orange-500 font-bold rounded-2xl px-4 text-lg shadow-sm shadow-orange-200">Order ID: {{order.id}}</div>
+  <table class="min-w-full bg-white border border-gray-200">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">#</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Brand</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Medicine</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Dosage Form</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Dose</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Price</th>
+        <th class="px-6 py-3 border-b border-orange-200 bg-orange-100 text-left text-xs text-orange-500 font-medium text-gray-500 uppercase tracking-wider">Sub Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example row -->
+      {%for i in items%}
+      <tr class="hover:bg-orange-50">
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{forloop.counter}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.brand}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.name}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.form}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.quantity}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">{{i.unit}}{{i.dose_unit}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">${{i.price}}</td>
+        <td class="px-6 py-4 whitespace-nowrap border-b border-orange-200">${{i.sub_total}}</td>
+      </tr>
+      {%endfor%}
+      <!-- Repeat rows dynamically -->
+    </tbody>
+  </table>
+</div>
+
+  <div class="bg-orange-100 p-4 rounded-lg space-y-2 mt-8 mx-7 border border-orange-200 shadow" id="totals-box">
+      <div class="flex justify-between text-sm">
+        <span>Subtotal:</span>
+        <span id="subtotal" class="font-medium">$0.00</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span>Tax (10%):</span>
+        <span id="tax" class="font-medium">$0.00</span>
+      </div>
+      <div class="flex justify-between text-sm font-semibold border-t border-orange-500 pt-2 mt-2">
+        <span>Grand Total:</span>
+        <span id="grand-total">$0.00</span>
+      </div>
+    </div>
+
+<form method="post" action="/pos/create_sale/">
+  {%csrf_token%}
+  <section class="text-gray-600 mt-10 body-font relative">
+    <input type="hidden" name="order_id" value="{{order.id}}">
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="name" class="leading-7 text-sm text-orange-600">Customer Name</label>
+            <input required type="text" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="phone" class="leading-7 text-sm text-orange-600">Phone #</label>
+            <input type="number" id="phone" name="phone" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -m-2">
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="paid" class="leading-7 text-sm text-orange-600">Paid</label>
+            <input required type="number" id="paid" name="paid" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+        </div>
+        <div class="p-2 w-1/2">
+          <div class="relative">
+            <label for="payment_type" class="leading-7 text-sm text-orange-600">Payment Method</label>
+           <select id="payment_type" name="payment_type" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <option value="cash">Cash</option>
+              <option value="card">Card</option>
+              <option value="online">Online</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="p-2 w-full mt-12">
+          <button type="submit"  class="flex mx-auto text-white bg-orange-500 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded text-lg">Confirm</button>
+        </div>
+    </div>
+
+</section>
+
+</form>
+
+
+
+
+
+
+
+{%endblock%}
+
+{% block scripts %}
+
+  function calculateTotals() {
+    let subtotal = 0;
+
+    // Get all <td> cells in the 8th column (sub_total column)
+    const rows = document.querySelectorAll("td:nth-child(8)");
+
+    rows.forEach(cell => {
+      let text = cell.textContent.trim().replace('$', '');
+      let value = parseFloat(text) || 0;
+      subtotal += value;
+    });
+
+    // Calculate tax and grand total
+    let tax = subtotal * 0.10;
+    let grandTotal = subtotal + tax;
+
+    // Update the totals in the HTML
+    document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById("tax").textContent = `$${tax.toFixed(2)}`;
+    document.getElementById("grand-total").textContent = `$${grandTotal.toFixed(2)}`;
+  }
+
+  // Automatically run the function when the page loads
+  window.addEventListener("DOMContentLoaded", calculateTotals);
+
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
+<!--<h1>Checkout - Order #{{ order.id }}</h1>-->
+<!--<ul>-->
+<!--  {% for item in items %}-->
+<!--    <li>{{ item.name }} {{item.brand}} - {{ item.quantity }} {{item.form}}{{item.unit}} x ${{ item.price }}</li>-->
+<!--  {% endfor %}-->
+<!--</ul>-->
+
+
