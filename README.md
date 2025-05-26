@@ -109,10 +109,10 @@ A comprehensive, Django-based Pharmacy Management System designed to streamline 
 
 ## 🖥️ User Interface
 
-* Clean and responsive design
+* Clean design
 * TailwindCSS-powered frontend
 * Real-time search UX
-* Accessible layout on desktop and mobile
+* Accessible layout on desktop
 
 ---
 
